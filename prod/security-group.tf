@@ -49,14 +49,13 @@ resource "aws_security_group" "vs_security_group_magento_prod" {
     ipv6_cidr_blocks = ["::/0"]
   }
 
-//  ingress {
-//    protocol = "tcp"
-//    from_port = 22
-//    to_port = 22
-//    description = "ssh"
-//    cidr_blocks = [aws_security_group.vs_security_group_bastion_prod.ingress]
-//    ipv6_cidr_blocks = [aws_security_group.vs_security_group_bastion_prod.ingress]
-//  }
+  ingress {
+    protocol = "tcp"
+    from_port = 22
+    to_port = 22
+    description = "ssh"
+    security_groups = [aws_security_group.vs_security_group_bastion_prod.id]
+  }
 
   egress {
     protocol = "tcp"
