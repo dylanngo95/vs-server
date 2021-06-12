@@ -14,3 +14,24 @@ terraform init
 terraform plan -var-file=prod.tfvars
 terraform apply -var-file=prod.tfvars
 ```
+# How to configuration ssh
+
+```bash
+# Move private key to ~/.ssh/
+cp private_key ~/.ssh
+
+# Edit ssh config
+Host bastion
+    HostName <bastion_public_ip>
+    User ubuntu
+    IdentityFile ~/.ssh/private_key
+Host service
+    HostName <service_private_ip>
+    User ubuntu
+    IdentityFile ~/.ssh/private_key
+    ProxyCommand ssh -W %h:%p bastion
+
+# ssh to services
+ssh bastion
+ssh service
+```

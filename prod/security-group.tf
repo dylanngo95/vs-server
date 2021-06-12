@@ -1,5 +1,5 @@
 resource "aws_security_group" "vs_security_group_bastion_prod" {
-  name = "allow_ssh"
+  name = "vs_security_group_bastion_prod"
   description = "Income: ssh OutCome: ssh"
   vpc_id = aws_vpc.vs_vpc.id
 
@@ -34,7 +34,7 @@ resource "aws_security_group" "vs_security_group_bastion_prod" {
 }
 
 resource "aws_security_group" "vs_security_group_magento_prod" {
-  name = "allow_mdc"
+  name = "vs_security_group_magento_prod"
   description = "Income: http, https, ssh Outcome: mysql, smtp, amqp, elastic search, redis cache, rabbit mq, kafka"
   vpc_id = aws_vpc.vs_vpc.id
 

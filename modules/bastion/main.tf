@@ -8,7 +8,7 @@ resource "aws_instance" "vs_instance_bastion" {
   ]
 
   provisioner "local-exec" {
-    command = "echo ${aws_instance.vs_instance_bastion.private_ip} >> vs_instance_bastion_private_ips.txt"
+    command = "echo ${aws_instance.vs_instance_bastion.public_ip} >> vs_instance_bastion_public_ips.txt"
   }
 
   tags = {

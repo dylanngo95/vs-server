@@ -1,0 +1,5 @@
+AWS_REGION      = ""
+AWS_SUBNET_ZONE = ""
+AWS_ACCESS_KEY  = ""
+AWS_SECRET_KEY  = ""
+INSTANCE_TYPE   = ""
