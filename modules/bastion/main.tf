@@ -4,7 +4,8 @@ resource "aws_instance" "vs_instance_bastion" {
   key_name = var.PUBLIC_KEY
   subnet_id = var.PUBLIC_SUBNET_ID
   vpc_security_group_ids = [
-    var.SECURITY_GROUP_ID]
+    var.SECURITY_GROUP_ID
+  ]
 
   provisioner "local-exec" {
     command = "echo ${aws_instance.vs_instance_bastion.private_ip} >> vs_instance_bastion_private_ips.txt"
