@@ -25,7 +25,7 @@ resource "aws_internet_gateway" "vs_internet_gateway" {
 # Create subnet
 resource "aws_subnet" "vs_subnet_public" {
   vpc_id = aws_vpc.vs_vpc.id
-  cidr_block = "10.0.1.0/24"
+  cidr_block = "10.0.2.0/24"
   map_public_ip_on_launch = "true"
   # it makes this a public subnet
   availability_zone = "ap-southeast-1b"
@@ -37,13 +37,25 @@ resource "aws_subnet" "vs_subnet_public" {
 
 resource "aws_subnet" "vs_subnet_private" {
   vpc_id = aws_vpc.vs_vpc.id
-  cidr_block = "10.0.2.0/24"
+  cidr_block = "10.0.1.0/24"
   map_public_ip_on_launch = "true"
   # it makes this a public subnet
   availability_zone = "ap-southeast-1b"
 
   tags = {
     Name = "vs_subnet_private"
+  }
+}
+
+resource "aws_subnet" "vs_subnet_mysql" {
+  vpc_id = aws_vpc.vs_vpc.id
+  cidr_block = "10.0.3.0/24"
+  map_public_ip_on_launch = "true"
+  # it makes this a public subnet
+  availability_zone = "ap-southeast-1a"
+
+  tags = {
+    Name = "vs_subnet_mysql"
   }
 }
 
@@ -77,4 +89,14 @@ resource "aws_route_table" "vs_route_table_private" {
 resource "aws_route_table_association" "vs_route_table_private_vs_subnet_private" {
   subnet_id = aws_subnet.vs_subnet_private.id
   route_table_id = aws_route_table.vs_route_table_private.id
+}
+
+# Create database group subnet
+resource "aws_db_subnet_group" "vs_db_subnet_group" {
+  name       = "vs_db_subnet_group"
+  subnet_ids = [aws_subnet.vs_subnet_private.id, aws_subnet.vs_subnet_mysql.id]
+
+  tags = {
+    Name = "vs_db_subnet_group"
+  }
 }
