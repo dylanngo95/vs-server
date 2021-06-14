@@ -35,3 +35,9 @@ Host service
 ssh bastion
 ssh service
 ```
+# How to ssh to rds
+```bash
+1, ssh to magento instance
+2, connect to mysql
+mysql -u'admin' -p'admin123' -h'rds-endpoint'
+```
