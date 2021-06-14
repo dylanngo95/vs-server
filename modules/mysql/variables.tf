@@ -19,4 +19,7 @@ variable "DB_GROUP_SUBNET_NAME" {
 variable "NAME" {
   type = string
 }
+variable "MYSQL_SECURITY_GROUP" {
+  type = list(string)
+}
 
