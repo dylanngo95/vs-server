@@ -12,6 +12,6 @@ resource "aws_instance" "vs_instance_magento" {
   }
 
   tags = {
-    Name = "vs_instance_magento"
+    Name = var.NAME
   }
 }

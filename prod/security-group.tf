@@ -217,3 +217,59 @@ resource "aws_security_group" "vs_security_group_mysql_prod" {
     Name = "vs_security_group_mysql_prod"
   }
 }
+
+resource "aws_security_group" "vs_security_group_elastic_search_prod" {
+  name = "vs_security_group_elastic_search_prod"
+  description = "Income: elastic search"
+  vpc_id = aws_vpc.vs_vpc.id
+
+  ingress {
+    protocol = "tcp"
+    from_port = 22
+    to_port = 22
+    description = "ssh"
+    security_groups = [
+      aws_security_group.vs_security_group_bastion_prod.id
+    ]
+  }
+
+  ingress {
+    protocol = "tcp"
+    from_port = 9200
+    to_port = 9200
+    description = "elastic search"
+    security_groups = [
+      aws_security_group.vs_security_group_magento_prod.id
+    ]
+  }
+
+  egress {
+    protocol = "tcp"
+    from_port = 80
+    to_port = 80
+    description = "http"
+    cidr_blocks = [
+      "0.0.0.0/0"
+    ]
+    ipv6_cidr_blocks = [
+      "::/0"
+    ]
+  }
+
+  egress {
+    protocol = "tcp"
+    from_port = 443
+    to_port = 443
+    description = "https"
+    cidr_blocks = [
+      "0.0.0.0/0"
+    ]
+    ipv6_cidr_blocks = [
+      "::/0"
+    ]
+  }
+
+  tags = {
+    Name = "vs_security_group_elastic_search_prod"
+  }
+}
